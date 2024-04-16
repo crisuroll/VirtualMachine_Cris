@@ -2,5 +2,7 @@
 /.vscode/
 /NOTAS.docx
 /VirtualMachine_v1/.settings/
+/VirtualMachine_v1/.classpath
+/VirtualMachine_v1/.project
 /VirtualMachine_v1/bin/
 /Máquina Virtual v1.pdf

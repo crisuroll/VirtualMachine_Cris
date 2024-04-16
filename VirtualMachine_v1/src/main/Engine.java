@@ -18,7 +18,7 @@ public class Engine {
 	
 	public void start() {
 		System.out.println("Comienza el programa VIRTUAL MACHINE\r\n"
-				+ "Escriba HELP para mostrar la ayuda.");
+				+ "\nEscriba HELP para mostrar la ayuda.");
 		OperandStack owo = new OperandStack();
 		System.out.println(owo.isEmpty());
 		owo.push(2);
@@ -26,12 +26,7 @@ public class Engine {
 		Memory uwu = new Memory();
 		uwu.write(1, 2);
 		uwu.write(2, 3);
-		uwu.resize();
-		uwu.write(3, 4);
-		//System.out.println(owo.isEmpty());
-		//System.out.println(owo.getCima());
-		owo.toString();
-		owo.pop();
+		//owo.add();
 		owo.toString();
 		System.out.println(owo.toString());
 		System.out.println(uwu.toString());

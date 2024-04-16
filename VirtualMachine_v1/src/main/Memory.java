@@ -12,6 +12,7 @@ public class Memory {
 	final private int MAX_MEMORY;
 	private Integer[] Memory;
 	private int size;
+	private boolean empty; // No sé dónde se utiliza xd
 
 	/**
 	 * Constructora de la clase Memory.
@@ -20,6 +21,7 @@ public class Memory {
 		this.MAX_MEMORY = 2;
 		this.Memory = new Integer[MAX_MEMORY];
 		this.size = 0;
+		this.empty = false;
 	}
 
 	/**
@@ -31,10 +33,11 @@ public class Memory {
 		String str = "";
 		for (int i = 0; i < this.Memory.length; i++) {
 			if(this.Memory[i] != null) {
-				str = str + this.Memory[i] + " ";
+				str = str + " [ " + i + "] " + this.Memory[i] + " ";
+			} else {
+				str = str + " <vacía> ";
 			}
 		}
-		// System.out.println(str);
 		return str;
 	}
 	
@@ -44,19 +47,25 @@ public class Memory {
 	 * @param value representa el valor de la posicion proporcionada.
 	 * @return value; true si se ha añadido correctamente, false en caso contrario.
 	 */
-	/*
-	 * -------------------------------------REVISAR ESTE MÉTODO------------------------------------------
-	 */
 	public boolean write(int _pos, int _value) {
+		// value es la cima de la pila
 		boolean added = false;
-		this.Memory[_pos - 1] = _value;
-		if (this.Memory[_pos - 1] == _value) {
-			System.out.println("Valor escrito correctamente.");
-			this.size++;
-			added = true;
+		if (_pos >= 0) {
+			if (this.size < this.MAX_MEMORY) {
+				this.Memory[_pos] = _value;
+				System.out.println("Valor escrito correctamente.");
+				this.size++;
+				added = true;
+			} else {
+				System.out.println("Aumentando memoria...");
+				resize(_pos);
+				this.Memory[_pos] = _value;
+				System.out.println("Valor escrito correctamente.");
+				this.size++;
+				added = true;
+			}	
 		} else {
-			System.out.println("Ha fallado la operación.");
-			added = false;
+			System.err.println("Error. La posición no puede ser menor que 0.");
 		}
 		return added;
 	}
@@ -66,29 +75,29 @@ public class Memory {
 	 * @param _pos es la posicion de la memoria.
 	 * @return value es el valor que hay en dicha posicion.
 	 */
-	public int read(int _pos) {
-		int value = 0;
-		if (this.Memory[_pos - 1] != null) {
-			value = this.Memory[_pos - 1];
+	public Integer read(int _pos) {
+		int value = -1;
+		if (this.Memory[_pos] != null) {
+			value = this.Memory[_pos];
 		}
 		return value;
-		//return (this.Memory[_pos - 1] != null) ? this.Memory[_pos - 1] : 0; // Ojalá poder implementar esto
 	}
 	
 	/**
 	 * Metodo resize(). Duplica el tamaño del array.
 	 * @return Memory siendo el array duplicado.
 	 */
-	public Integer[] resize() {
-		Integer[] Memory2 = new Integer[this.Memory.length*2];
-		for (int i = 0; i < this.Memory.length*2; i++) {
-			if (i < this.Memory.length) {
-				Memory2[i] = this.Memory[i];
-			} else {
-				Memory2[i] = null;
+	private void resize(int _pos) {
+		Integer[] Memory2 = new Integer[_pos*2];
+		if (_pos >= this.size) {
+			for (int i = 0; i < this.Memory.length*2; i++) {
+				if (i < this.Memory.length) {
+					Memory2[i] = this.Memory[i];
+				} else {	
+					Memory2[i] = null;
+				}
 			}
 		}
 		this.Memory = Memory2;
-		return this.Memory;
 	}
 }

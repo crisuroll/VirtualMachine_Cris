@@ -30,10 +30,11 @@ public class OperandStack {
 		String str = "";
 		for (int i = 0; i < this.numElems; i++) {
 			if(this.Stack[i] != null) {
-				str = str + this.Stack[i] + " ";
+				str = str + " " + this.Stack[i] + " ";
+			} else {
+				str = str + " <vacía> ";
 			}
 		}
-		// System.out.println(str);
 		return str;
 	}
 	
@@ -42,17 +43,23 @@ public class OperandStack {
 	 * @return true si está vacia; false si contiene elementos.
 	 */
 	public boolean isEmpty() {
-		// Intento de condición ternaria
-		return this.numElems == 0 ? true : false;
+		return this.numElems == 0;
 	}
 	
 	/**
 	 * Metodo push(). Simula el metodo push() de la clase Stack.
 	 * @param _num es el numero recibido por parametro que se quiere añadir al array.
 	 */
-	public void push(int _num) {
-		this.Stack[numElems] = _num;
-		this.numElems++;
+	public boolean push(int _num) {
+		boolean added = false;
+		if (this.Stack.length == numElems) { 
+			System.err.println("Error. Pila llena.");
+		} else {
+			this.Stack[numElems] = _num;
+			this.numElems++;
+			added = true;
+		}
+		return added;
 	}
 	
 	/**
@@ -60,9 +67,12 @@ public class OperandStack {
 	 * @return del siendo el elemento eliminado
 	 */
 	public int pop() {
-		int del = this.Stack[numElems - 1];
-		this.Stack[numElems - 1] = null;
-		this.numElems--;
+		int del = -1;
+		if (numElems != 0) {
+			del = this.Stack[numElems - 1];
+			this.Stack[numElems - 1] = null;
+			this.numElems--;
+		}
 		return del;
 	}
 	
@@ -71,6 +81,11 @@ public class OperandStack {
 	 * @return this.Stack[numElems - 1] siendo la cima de la pila.
 	 */
 	public int getCima() {
-		return this.Stack[numElems - 1];
+		int peek = -1;
+		if (numElems != 0) {
+			peek = this.Stack[numElems - 1];
+		} 
+		return peek;
 	}
+
 }
