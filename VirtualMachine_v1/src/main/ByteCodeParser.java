@@ -5,14 +5,13 @@ package main;
  */
 public class ByteCodeParser {
 	/**
-	 * Metodo parse. Se encarga de analizar el parametro line y generar a partir de el un comando.
+	 * Metodo parse. Se encarga de analizar el parametro s y generar a partir de el un comando.
 	 * @param line es la instruccion bytecode dado por el usuario.
 	 * @return s si la instruccion existe; null en caso contrario. 
 	 */
 	public static ByteCode parse(String s) {
 		ByteCode bc = null;
 		String[] cadena = s.toLowerCase().split(" ");
-		Integer _value = Integer.parseInt(cadena[1]);
 		if (cadena.length == 1) {
 			switch (cadena[0]) {
 			case "add":
@@ -37,31 +36,30 @@ public class ByteCodeParser {
 		} else if (cadena.length == 2) {
 			switch (cadena[0]) {
 			case "push":
-				if (_value != null) {
-					bc = new ByteCode(ENUM_BYTECODE.PUSH, _value);
+				if (cadena[1] != null) {
+					bc = new ByteCode(ENUM_BYTECODE.PUSH, Integer.parseInt(cadena[1]));
 				} else {
-					System.out.println("Error. Argumento no válido.");// REVISAR
+					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			case "load":
-				if (_value != null) {
-					bc = new ByteCode(ENUM_BYTECODE.LOAD, _value);
+				if (cadena[1] != null) {
+					bc = new ByteCode(ENUM_BYTECODE.LOAD, Integer.parseInt(cadena[1]));
 				} else {
-					System.out.println("Error. Argumento no válido.");// REVISAR
+					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			case "store":
-				if (_value != null) {
-					bc = new ByteCode(ENUM_BYTECODE.STORE, _value);
+				if (cadena[1] != null) {
+					bc = new ByteCode(ENUM_BYTECODE.STORE, Integer.parseInt(cadena[1]));
 				} else {
-					System.out.println("Error. Argumento no válido.");// REVISAR
+					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			}
 		} else {
-			System.out.println("Error. Bytecode no válido.");
+			System.err.println("Error. Bytecode no válido.");
 		}
-
 		return bc;
 	}
 }

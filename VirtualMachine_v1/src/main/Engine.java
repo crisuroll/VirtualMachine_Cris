@@ -1,37 +1,30 @@
 package main;
 
+import java.util.Scanner;
+
 /**
  * Clase Engine. Bucle de la aplicación.
  * @author crisuroll
  */
 public class Engine {
+	private ByteCodeProgram program;
+	private boolean end;
 	
-	// -----------------------------------------PRUEBAS----------------------------------------------\\
-	public void menu() {
-		System.out.println("HELP: Muestra esta ayuda\r\n"
-				+ "QUIT: Cierra la aplicación\r\n"
-				+ "RUN: Ejecuta el programa\r\n"
-				+ "NEWINST BYTECODE: Introduce una nueva instrucción al metaprograma\r\n"
-				+ "RESET: Vacía el programa actual\r\n"
-				+ "REPLACE N: Reemplaza la instrucción N por la solicitada al usuario\r\n");
-	}
+	Command cmd = new Command(ENUM_COMMAND.HELP);
+	CommandParser cmdp = new CommandParser();
+	Scanner sc = new Scanner(System.in);
+	String op = " ";
 	
+	/**
+	 * Metodo start().
+	 */
 	public void start() {
-		System.out.println("Comienza el programa VIRTUAL MACHINE\r\n"
-				+ "\nEscriba HELP para mostrar la ayuda.");
-		OperandStack owo = new OperandStack();
-		System.out.println(owo.isEmpty());
-		owo.push(2);
-		owo.push(3);
-		Memory uwu = new Memory();
-		uwu.write(1, 2);
-		uwu.write(2, 3);
-		//owo.add();
-		owo.toString();
-		System.out.println(owo.toString());
-		System.out.println(uwu.toString());
+		System.out.println("Comienza el programa VIRTUAL MACHINE\r\n");
+		do {
+			this.cmd.execute(this);	
+			this.cmd = CommandParser.parse(this.sc.nextLine());
+			
+		} while (this.cmd.getCommand()!= ENUM_COMMAND.QUIT); 
 	}
-	
-
 	
 }

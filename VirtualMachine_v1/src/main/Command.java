@@ -14,10 +14,15 @@ public class Command {
 	private ENUM_COMMAND command;
 	private ByteCode instruction;
 	private int replace;
+	private boolean exc = false;
 	
 	/**
 	 * Constructora.
-	 */
+	 */	
+	public Command() {
+		
+	}
+	
 	public Command(ENUM_COMMAND _command) {
 		this.command = _command;
 	}
@@ -27,28 +32,54 @@ public class Command {
 		this.replace = _replace;
 	}
 	
-	public void help() {
+	public Command(ENUM_COMMAND _command, ByteCode _instruction) {
+		this.command = _command;
+		this.instruction = _instruction;
+	}
+	
+	public ENUM_COMMAND getCommand() {
+		return this.command;
+	}
+	
+	public boolean help() {
 		this.command = ENUM_COMMAND.HELP;
+		System.out.println("Comienza la ejecución de HELP\n");
+		System.out.println("\n	HELP: Muestra esta ayuda\n"
+				+ "	QUIT: Cierra la aplicación\n"
+				+ "	RUN: Ejecuta el programa\n"
+				+ "	NEWINST BYTECODE: Introduce una nueva instrucción al programa\n"
+				+ "	RESET: Vacía el programa actual\n"
+				+ "	REPLACE N: Reemplaza la instrucción N por la solicitada al usuario\n");
+		return true;
 	}
 	
-	public void quit() {
+	public boolean quit() {
 		this.command = ENUM_COMMAND.QUIT;
+		System.out.println("Comienza la ejecución de QUIT\n"
+				+ "Programa almacenado:\n"
+				+ "Fin de la ejecución...");
+		return true;
 	}
 	
-	public void run() {
+	public boolean run() {
 		this.command = ENUM_COMMAND.RUN;
+		return true;
 	}
 	
-	public void newinst(ByteCode bc) {
+	public boolean newinst(ByteCode bc) {
 		this.command = ENUM_COMMAND.NEWINST;
+		System.out.println("Comienza la ejecución de NEWINST " );
+		return true;
 	}
 	
-	public void reset(int n) {
+	public boolean reset(int n) {
 		this.command = ENUM_COMMAND.RESET;
+		return true;
 	}
 	
-	public void replace(int n) {
+	public boolean replace(int n) {
 		this.command = ENUM_COMMAND.REPLACE;
+		return true;
 	}
 	
 	/**
@@ -57,39 +88,40 @@ public class Command {
 	 * @return exc siendo true si se ejecuta, false si da error.
 	 */
 	public boolean execute(Engine engine) {
-		boolean exc = false;
-		ENUM_COMMAND op = ENUM_COMMAND.HELP;
+		ENUM_COMMAND op = this.command;
 		switch (op) {
 			case HELP:
-				System.out.println("Comienza la ejecución de HELP\n");
-				System.out.println("\n	HELP: Muestra esta ayuda\n"
-						+ "	QUIT: Cierra la aplicación\n"
-						+ "	RUN: Ejecuta el programa\n"
-						+ "	NEWINST BYTECODE: Introduce una nueva instrucción al programa\n"
-						+ "	RESET: Vacía el programa actual\n"
-						+ "	REPLACE N: Reemplaza la instrucción N por la solicitada al usuario\n");
+				if (help()) {
+					this.exc = true;
+				}
 			break;
 			case QUIT:
-				System.out.println("Comienza la ejecución de QUIT\n");
-				System.out.println("\nFin de la ejecución...");
+				if (quit()) {
+					this.exc = true;
+				}
 			break;
 			case NEWINST:
+				if (newinst(this.instruction)) {
+					this.exc = true;
+				}
 			break;
 			case RUN:
+				if (run()) {
+					this.exc = true;
+				}
 			break;
 			case RESET:
+				if (reset(this.replace)) {
+					this.exc = true;
+				}
 			break;
 			case REPLACE:
+				if (replace(this.replace)) {
+					this.exc = true;
+				}
 			break;
 		}
-		/*
-		if (){
-			exc = true;
-		} else {
-			exc = false;
-		}
-		*/
-		return exc;
+		return this.exc;
 	}
 	
 }

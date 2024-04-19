@@ -14,7 +14,6 @@ public class CommandParser {
 	public static Command parse(String line) {
 		Command cmd = null;
 		String[] cadena = line.toLowerCase().split(" ");
-		Integer _value = Integer.parseInt(cadena[1]);
 		if (cadena.length == 1) {
 			switch (cadena[0]) {
 			case "help":
@@ -29,32 +28,34 @@ public class CommandParser {
 			}	
 		} else if (cadena.length == 2) {
 			switch (cadena[0]) {
-			case "newinst":
-				if (_value != null) {
-					cmd = new Command(ENUM_COMMAND.NEWINST, _value);
-				} else {
-					System.out.println("Error. Argumento no válido.");// REVISAR
-				}
-			break;
 			case "reset":
-				if (_value != null) {
-					cmd = new Command(ENUM_COMMAND.RESET, _value);
+				if (cadena[1] != null) {
+					cmd = new Command(ENUM_COMMAND.RESET, Integer.parseInt(cadena[1]));
 				} else {
-					System.out.println("Error. Argumento no válido.");// REVISAR
+					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			case "replace":
-				if (_value != null) {
-					cmd = new Command(ENUM_COMMAND.REPLACE, _value);
+				if (cadena[1] != null) {
+					cmd = new Command(ENUM_COMMAND.REPLACE, Integer.parseInt(cadena[1]));
 				} else {
-					System.out.println("Error. Argumento no válido.");// REVISAR
+					System.err.println("Error. Argumento no válido.");
+				}
+			break;
+			}
+		} else if (cadena.length == 3) {
+			switch (cadena[0]) {
+			case "newinst":
+				if (cadena[1] != null) {
+					cmd = new Command(ENUM_COMMAND.NEWINST, ByteCodeParser.parse(cadena[1]+ " " + cadena[2]));
+				} else {
+					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			}
 		} else {
-			System.out.println("Error. Comando no válido.");
+			System.err.println("Error. Comando no válido.");
 		}
-
 		return cmd;
 	}
 }
