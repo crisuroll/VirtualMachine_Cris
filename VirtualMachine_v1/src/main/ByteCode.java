@@ -18,6 +18,10 @@ public class ByteCode {
 	/**
 	 * Constructora.
 	 */
+	public ByteCode() {
+		
+	}
+	
 	public ByteCode(ENUM_BYTECODE _name) {
 		this.name = _name;
 	}
@@ -28,13 +32,27 @@ public class ByteCode {
 	}
 	
 	/**
+	 * Metodo getBytecode. Coge el valor de tipo enum del ByteCode.
+	 */
+	public ENUM_BYTECODE getBytecode() {
+		return this.name;
+	}
+	
+	/**
+	 * Metodo getParam. Coge el parámetro del bytecode.
+	 */
+	public int getParam() {
+		return this.param;
+	}
+	
+	/**
 	 * Metodo push(). Instruccion bytecode que apila en el stack el entero n.
 	 * @param n es el entero a apilar.
 	 */
 	public void push(int n) {
 		this.name = ENUM_BYTECODE.PUSH;
 		this.param = n;
-		s.push(this.param);
+		this.s.push(this.param);
 	}
 	
 	/**
@@ -44,7 +62,7 @@ public class ByteCode {
 	public void load(int pos) {
 		this.name = ENUM_BYTECODE.LOAD;
 		this.param = pos;
-		s.push(m.read(this.param));
+		this.s.push(m.read(this.param));
 	}
 	
 	/**
@@ -54,7 +72,7 @@ public class ByteCode {
 	public void store(int pos) {
 		this.name = ENUM_BYTECODE.STORE;
 		this.param = pos;
-		m.write(this.param, s.pop());
+		this.m.write(this.param, s.pop());
 	}
 	
 	/**
@@ -66,12 +84,12 @@ public class ByteCode {
 		this.name = ENUM_BYTECODE.ADD;
 		int cima = s.pop();
 		int subcima = s.getCima();
-		s.push(cima);
+		this.s.push(cima);
 		int add = subcima + cima;
 		System.out.println("La suma de " + subcima + " y " + cima + " es " + add);
-		s.pop();
-		s.pop();
-		s.push(add);
+		this.s.pop();
+		this.s.pop();
+		this.s.push(add);
 		return add;
 	}
 	
@@ -84,12 +102,12 @@ public class ByteCode {
 		this.name = ENUM_BYTECODE.SUB;
 		int cima = s.pop();
 		int subcima = s.getCima();
-		s.push(cima);
+		this.s.push(cima);
 		int sub = subcima - cima;
 		System.out.println("La resta de " + subcima + " y " + cima + " es " + sub);
-		s.pop();
-		s.pop();
-		s.push(sub);
+		this.s.pop();
+		this.s.pop();
+		this.s.push(sub);
 		return sub;
 	}
 	
@@ -102,12 +120,12 @@ public class ByteCode {
 		this.name = ENUM_BYTECODE.MUL;
 		int cima = s.pop();
 		int subcima = s.getCima();
-		s.push(cima);
+		this.s.push(cima);
 		int mul = subcima * cima;
 		System.out.println("La suma de " + subcima + " y " + cima + " es " + mul);
-		s.pop();
-		s.pop();
-		s.push(mul);
+		this.s.pop();
+		this.s.pop();
+		this.s.push(mul);
 		return mul;
 	}
 	
@@ -120,12 +138,12 @@ public class ByteCode {
 		this.name = ENUM_BYTECODE.DIV;
 		int cima = s.pop();
 		int subcima = s.getCima();
-		s.push(cima);
+		this.s.push(cima);
 		int div = subcima / cima;
 		System.out.println("La suma de " + subcima + " y " + cima + " es " + div);
-		s.pop();
-		s.pop();
-		s.push(div);
+		this.s.pop();
+		this.s.pop();
+		this.s.push(div);
 		return div;
 	}
 	

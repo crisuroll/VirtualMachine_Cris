@@ -11,11 +11,20 @@ public class CPU {
 	private OperandStack pila;
 	private Memory memoria;
 	private boolean halt;
+	private ByteCode bc;
+	//private ByteCodeProgram program;
 	
 	public CPU() {
 		this.pila = new OperandStack();
 		this.memoria = new Memory();
 		this.halt = false;
+	}
+	
+	public CPU(ByteCode _bc) {
+		this.pila = new OperandStack();
+		this.memoria = new Memory();
+		this.halt = false;
+		this.bc = _bc;
 	}
 	
 	/**
@@ -24,6 +33,39 @@ public class CPU {
 	 */
 	public String toString() {
 		return "Pila: " + this.pila.toString() + "\n Memoria: " + this.memoria.toString();
+	}
+	
+	/**
+	 * Metodo sumaPila.
+	 * @return 
+	 */
+	public boolean sumaPila() {
+		this.bc.add();
+		return true;
+	}
+	
+	/**
+	 * Metodo restaPila.
+	 */
+	public boolean restaPila() {
+		this.bc.sub();
+		return true;
+	}
+	
+	/**
+	 * Metodo multiplicaPila.
+	 */
+	public boolean multiplicaPila() {
+		this.bc.mul();
+		return true;
+	}
+	
+	/**
+	 * Metodo dividePila.
+	 */
+	public boolean dividePila() {
+		this.bc.div();
+		return true;
 	}
 	
 	/**
@@ -41,77 +83,49 @@ public class CPU {
 	}
 	
 	/**
-	 * Metodo sumaPila.
-	 * @return 
-	 */
-	public boolean sumaPila() {
-		return true;
-	}
-	
-	/**
-	 * Metodo restaPila.
-	 */
-	public boolean restaPila() {
-		return true;
-	}
-	
-	/**
-	 * Metodo multiplicaPila.
-	 */
-	public boolean multiplicaPila() {
-		return true;
-	}
-	
-	/**
-	 * Metodo dividePila.
-	 */
-	public boolean dividePila() {
-		return true;
-	}
-	
-	/**
 	 * Metodo execute. Encargado de ejecutar la instruccion que le llega como parametro modificando 
 	 * convenientemente la memoria y/o la pila de operandos.
 	 * @param instr siendo la instruccion bytecode que se quiere ejecutar.
 	 * @return exc; true si se ha ejecutado correctamente, false en caso contrario.
 	 */
 	public boolean execute(ByteCode instr) {
+		//this.program.setInstr(instr);
 		boolean exc = false;
-		ByteCode op = instr;
-		switch (op) {
-			case ENUM_BYTECODE.ADD:
+		this.bc = instr;
+		switch (this.bc.getBytecode()) {
+			case PUSH:
+				this.bc.push(instr.getParam());
+			break;
+			case LOAD:
+			
+			break;
+			case STORE:
+			
+			break;
+			case ADD:
 				if (sumaPila()) {
 					exc = true;
 				}
 			break;
-			case ENUM_BYTECODE.SUB:
+			case SUB:
 				if (restaPila()) {
 					exc = true;
 				}
 			break;
-			case ENUM_BYTECODE.MUL:
+			case MUL:
 				if (multiplicaPila()) {
 					exc = true;
 				}
 			break;
-			case ENUM_BYTECODE.DIV:
+			case DIV:
 				if (dividePila()) {
 					exc = true;
 				}
 			break;
-			case ENUM_BYTECODE.OUT:
+			case OUT:
 				
 			break;
-			case ENUM_BYTECODE.HALT:
-				
-			break;
-			case ENUM_BYTECODE.PUSH:
-			
-			break;
-			case ENUM_BYTECODE.LOAD:
-				
-			break;
-			case ENUM_BYTECODE.STORE:
+			case HALT:
 				
 			break;
 		}

@@ -12,24 +12,14 @@ public class ByteCodeProgram {
 	private ByteCode[] program;
 	private int numElems;
 	private int size;
-	private final int MAX_PROGRAM;
 	
 	/**
 	 * Constructoras.
 	 */
 	public ByteCodeProgram() {
-		this.MAX_PROGRAM = 2;
-		this.program = new ByteCode[MAX_PROGRAM];
+		this.size = 3;
+		this.program = new ByteCode[size];
 		this.numElems = 0;
-		this.size = 0;
-	}
-	
-	/**
-	 * Metodo addByteCode. Añade un bytecode al programa.
-	 * @param _bytecode es la instruccion bytecode.
-	 */
-	public void addByteCode (ByteCode _bytecode) {
-		
 	}
 	
 	/**
@@ -48,9 +38,13 @@ public class ByteCodeProgram {
 	 * @param _bytecode es la instruccion bytecode.
 	 */
 	public void setInstr (ByteCode _bytecode) {
-		if (this.size > this.MAX_PROGRAM) {
+		if (this.numElems >= this.size) {
 			resize();
-			addByteCode(_bytecode);
+			this.program[numElems] = _bytecode;
+			this.numElems++;
+		} else {
+			this.program[numElems] = _bytecode;
+			this.numElems++;
 		}
 	}
 	
@@ -74,7 +68,11 @@ public class ByteCodeProgram {
 	 * Metodo toString.
 	 */
 	public String toString() {
-		return null;
+		String str = "Programa almacenado:\n";
+		for (int i = 0; i < this.program.length; i++) {
+			//str = str + i + ": " + this.program.getByteCode() + "\n";
+		}
+		return str;
 	}
 	
 	/**

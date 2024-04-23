@@ -16,6 +16,8 @@ public class Command {
 	private int replace;
 	private boolean exc = false;
 	
+	private CPU cpu;
+	
 	/**
 	 * Constructora.
 	 */	
@@ -43,7 +45,6 @@ public class Command {
 	
 	public boolean help() {
 		this.command = ENUM_COMMAND.HELP;
-		System.out.println("Comienza la ejecución de HELP\n");
 		System.out.println("\n	HELP: Muestra esta ayuda\n"
 				+ "	QUIT: Cierra la aplicación\n"
 				+ "	RUN: Ejecuta el programa\n"
@@ -55,9 +56,7 @@ public class Command {
 	
 	public boolean quit() {
 		this.command = ENUM_COMMAND.QUIT;
-		System.out.println("Comienza la ejecución de QUIT\n"
-				+ "Programa almacenado:\n"
-				+ "Fin de la ejecución...");
+		System.out.println("Fin de la ejecución...");
 		return true;
 	}
 	
@@ -68,7 +67,14 @@ public class Command {
 	
 	public boolean newinst(ByteCode bc) {
 		this.command = ENUM_COMMAND.NEWINST;
-		System.out.println("Comienza la ejecución de NEWINST " );
+		this.instruction = bc;
+		/*
+		switch (this.instruction.getBytecode()) {
+			case PUSH:
+				this.cpu.execute(bc);
+			break;
+		}
+		*/
 		return true;
 	}
 	
@@ -89,6 +95,8 @@ public class Command {
 	 */
 	public boolean execute(Engine engine) {
 		ENUM_COMMAND op = this.command;
+		this.cpu = new CPU(this.instruction);
+		System.out.println("Comienza la ejecución de " + op);
 		switch (op) {
 			case HELP:
 				if (help()) {
@@ -101,6 +109,7 @@ public class Command {
 				}
 			break;
 			case NEWINST:
+				this.cpu.execute(this.instruction);
 				if (newinst(this.instruction)) {
 					this.exc = true;
 				}
