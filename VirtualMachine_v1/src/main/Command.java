@@ -62,6 +62,10 @@ public class Command {
 	
 	public boolean run() {
 		this.command = ENUM_COMMAND.RUN;
+		this.cpu.execute(instruction);
+		System.out.println("El estado de la máquina tras ejecutar el bytecode " + this.command + " "
+				+ this.instruction + "es:\n"
+				+ this.cpu.toString());	
 		return true;
 	}
 	
@@ -96,7 +100,11 @@ public class Command {
 	public boolean execute(Engine engine) {
 		ENUM_COMMAND op = this.command;
 		this.cpu = new CPU(this.instruction);
-		System.out.println("Comienza la ejecución de " + op);
+		if (this.instruction != null) {
+			System.out.println("Comienza la ejecución de " + this.command + " " + this.instruction + "\n");
+		} else {
+			System.out.println("Comienza la ejecución de " + this.command + "\n");	
+		}
 		switch (op) {
 			case HELP:
 				if (help()) {
@@ -109,7 +117,6 @@ public class Command {
 				}
 			break;
 			case NEWINST:
-				this.cpu.execute(this.instruction);
 				if (newinst(this.instruction)) {
 					this.exc = true;
 				}

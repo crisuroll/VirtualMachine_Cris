@@ -32,7 +32,7 @@ public class CPU {
 	 * @return
 	 */
 	public String toString() {
-		return "Pila: " + this.pila.toString() + "\n Memoria: " + this.memoria.toString();
+		return "Memoria: " + this.memoria.toString() + "\nPila: " + this.pila.toString();
 	}
 	
 	/**
@@ -92,15 +92,15 @@ public class CPU {
 		//this.program.setInstr(instr);
 		boolean exc = false;
 		this.bc = instr;
-		switch (this.bc.getBytecode()) {
+		switch (this.bc.getEnumByteCode()) {
 			case PUSH:
 				this.bc.push(instr.getParam());
 			break;
 			case LOAD:
-			
+				this.bc.load(instr.getParam());
 			break;
 			case STORE:
-			
+				this.bc.load(instr.getParam());
 			break;
 			case ADD:
 				if (sumaPila()) {

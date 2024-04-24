@@ -35,7 +35,7 @@ public class Memory {
 			if(this.Memory[i] != null) {
 				str = str + " [ " + i + "] " + this.Memory[i] + " ";
 			} else {
-				str = str + " <vacía> ";
+				str = " <vacía> ";
 			}
 		}
 		return str;

@@ -53,8 +53,7 @@ public class ByteCodeProgram {
 	 * @param _pos es la posicion de la pila de comandos.
 	 */
 	public ByteCode getByteCode (int _pos) {
-		
-		return null; 
+		return this.program[_pos];
 	}
 	
 	/**
@@ -70,7 +69,9 @@ public class ByteCodeProgram {
 	public String toString() {
 		String str = "Programa almacenado:\n";
 		for (int i = 0; i < this.program.length; i++) {
-			//str = str + i + ": " + this.program.getByteCode() + "\n";
+			if (this.program[i] != null) {
+				str = str + i + ": " + this.program[i].toString() + "\n";
+			}
 		}
 		return str;
 	}
@@ -87,6 +88,7 @@ public class ByteCodeProgram {
 				program2[i] = null;
 			}
 		}
+		this.size = this.size*2;
 		this.program = program2;
 	}
 	

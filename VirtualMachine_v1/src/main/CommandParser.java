@@ -28,6 +28,13 @@ public class CommandParser {
 			}	
 		} else if (cadena.length == 2) {
 			switch (cadena[0]) {
+			case "newinst":
+				if (cadena[1] != null) {
+					cmd = new Command(ENUM_COMMAND.NEWINST, ByteCodeParser.parse(cadena[1]));
+				} else {
+					System.err.println("Error. Argumento no válido.");
+				}
+			break;
 			case "reset":
 				if (cadena[1] != null) {
 					cmd = new Command(ENUM_COMMAND.RESET, Integer.parseInt(cadena[1]));
