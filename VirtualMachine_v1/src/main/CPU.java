@@ -11,20 +11,11 @@ public class CPU {
 	private OperandStack pila;
 	private Memory memoria;
 	private boolean halt;
-	private ByteCode bc;
-	//private ByteCodeProgram program;
 	
 	public CPU() {
 		this.pila = new OperandStack();
 		this.memoria = new Memory();
 		this.halt = false;
-	}
-	
-	public CPU(ByteCode _bc) {
-		this.pila = new OperandStack();
-		this.memoria = new Memory();
-		this.halt = false;
-		this.bc = _bc;
 	}
 	
 	/**
@@ -40,7 +31,8 @@ public class CPU {
 	 * @return 
 	 */
 	public boolean sumaPila() {
-		this.bc.add();
+		int add = this.pila.pop() + this.pila.pop();
+		this.pila.push(add);
 		return true;
 	}
 	
@@ -48,7 +40,8 @@ public class CPU {
 	 * Metodo restaPila.
 	 */
 	public boolean restaPila() {
-		this.bc.sub();
+		int sub = this.pila.pop() - this.pila.pop();
+		this.pila.push(sub);
 		return true;
 	}
 	
@@ -56,7 +49,8 @@ public class CPU {
 	 * Metodo multiplicaPila.
 	 */
 	public boolean multiplicaPila() {
-		this.bc.mul();
+		int mul = this.pila.pop() * this.pila.pop();
+		this.pila.push(mul);
 		return true;
 	}
 	
@@ -64,8 +58,16 @@ public class CPU {
 	 * Metodo dividePila.
 	 */
 	public boolean dividePila() {
-		this.bc.div();
+		int div = this.pila.pop() / this.pila.pop();
+		this.pila.push(div);
 		return true;
+	}
+	
+	/**
+	 * Metodo runCPU.
+	 */
+	public void runCPU() {
+		
 	}
 	
 	/**
@@ -89,18 +91,18 @@ public class CPU {
 	 * @return exc; true si se ha ejecutado correctamente, false en caso contrario.
 	 */
 	public boolean execute(ByteCode instr) {
-		//this.program.setInstr(instr);
 		boolean exc = false;
-		this.bc = instr;
-		switch (this.bc.getEnumByteCode()) {
+		switch (instr.getEnumByteCode()) {
 			case PUSH:
-				this.bc.push(instr.getParam());
+				if (this.pila.push(instr.getParam())) {
+					exc = true;
+				}
 			break;
 			case LOAD:
-				this.bc.load(instr.getParam());
+				instr.load(instr.getParam());
 			break;
 			case STORE:
-				this.bc.load(instr.getParam());
+				instr.store(instr.getParam());
 			break;
 			case ADD:
 				if (sumaPila()) {

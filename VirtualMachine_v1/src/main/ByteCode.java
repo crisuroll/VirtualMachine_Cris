@@ -6,8 +6,8 @@ package main;
  */
 public class ByteCode {
 
-	OperandStack s = new OperandStack();
-	Memory m = new Memory();
+	private OperandStack s;
+	private Memory m;
 	
 	/**
 	 * Atributos.
@@ -20,9 +20,13 @@ public class ByteCode {
 	 */
 	public ByteCode(ENUM_BYTECODE _name) {
 		this.name = _name;
+		this.s = new OperandStack();
+		this.m = new Memory();
 	}
 	
 	public ByteCode(ENUM_BYTECODE _name, int _param) {
+		this.s = new OperandStack();
+		this.m = new Memory();
 		this.name = _name;
 		this.param = _param;
 	}
@@ -59,10 +63,11 @@ public class ByteCode {
 	 * Metodo push(). Instruccion bytecode que apila en el stack el entero n.
 	 * @param n es el entero a apilar.
 	 */
-	public void push(int n) {
+	public boolean push(int n) {
 		this.name = ENUM_BYTECODE.PUSH;
 		this.param = n;
 		this.s.push(this.param);
+		return true;
 	}
 	
 	/**
@@ -82,7 +87,7 @@ public class ByteCode {
 	public void store(int pos) {
 		this.name = ENUM_BYTECODE.STORE;
 		this.param = pos;
-		this.m.write(this.param, s.pop());
+		this.m.write(this.param, this.s.pop());
 	}
 	
 	/**

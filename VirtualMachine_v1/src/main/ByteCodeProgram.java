@@ -22,6 +22,10 @@ public class ByteCodeProgram {
 		this.numElems = 0;
 	}
 	
+	public int length() {
+		return this.program.length;
+	}
+	
 	/**
 	 * Metodo setInstrPos. Añade un bytecode a una posicion dada.
 	 * @param _bytecode es la instruccion bytecode.
@@ -57,10 +61,31 @@ public class ByteCodeProgram {
 	}
 	
 	/**
-	 * Metodo runProgram.
+	 * Metodo resetProgram.
 	 */
-	public void runProgram() {
-		
+	public ByteCode[] resetProgram() {
+		return this.program = new ByteCode[size];
+	}
+	
+	/**
+	 * Metodo runProgram. "Ejecuta" el programa. Recibe la CPU (pila y memoria). Crea un String
+	 * gigante (ver ejemplo de ejecución). Quien ejecuta el programa en verdad es Command.run()
+	 */
+	public String runProgram(CPU _cpu) {
+		String str = "";
+		for (int i = 0; i < this.numElems; i++) {
+			if (/*!_cpu.isHalt() &&*/ _cpu.execute(this.program[i])) {
+				str = str  + "\nEl estado de la máquina tras ejecutar el bytecode "
+						+ this.program[i] + " es:\n"
+						+ _cpu.toString();/*
+			} else if (!_cpu.isHalt()) { // Si hay error en la ejecución
+				System.err.println("Error: Ejecución incorrecta del comando.");
+				this.program.toString();*/
+			}
+		}
+		_cpu.erase();
+		// _cpu.runCPU(); hacer este método, la pone en marcha si estaba parada
+		return str;
 	} 
 	
 	/**

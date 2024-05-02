@@ -14,16 +14,19 @@ public class Command {
 	private ENUM_COMMAND command;
 	private ByteCode instruction;
 	private int replace;
+	
+	// Estos los he creado yo
 	private boolean exc = false;
 	
-	private CPU cpu;
+	// private CPU cpu;
 	
 	/**
 	 * Constructora.
 	 */	
-	public Command() {
-		
-	}
+	/*
+	public Command(ByteCode _instruction) {
+		this.instruction = _instruction;
+	}*/
 	
 	public Command(ENUM_COMMAND _command) {
 		this.command = _command;
@@ -39,57 +42,16 @@ public class Command {
 		this.instruction = _instruction;
 	}
 	
+	/**
+	 * Metodo getCommand.
+	 * @return
+	 */
 	public ENUM_COMMAND getCommand() {
 		return this.command;
 	}
 	
-	public boolean help() {
-		this.command = ENUM_COMMAND.HELP;
-		System.out.println("\n	HELP: Muestra esta ayuda\n"
-				+ "	QUIT: Cierra la aplicación\n"
-				+ "	RUN: Ejecuta el programa\n"
-				+ "	NEWINST BYTECODE: Introduce una nueva instrucción al programa\n"
-				+ "	RESET: Vacía el programa actual\n"
-				+ "	REPLACE N: Reemplaza la instrucción N por la solicitada al usuario\n");
-		return true;
-	}
-	
-	public boolean quit() {
-		this.command = ENUM_COMMAND.QUIT;
-		System.out.println("Fin de la ejecución...");
-		return true;
-	}
-	
-	public boolean run() {
-		this.command = ENUM_COMMAND.RUN;
-		this.cpu.execute(instruction);
-		System.out.println("El estado de la máquina tras ejecutar el bytecode " + this.command + " "
-				+ this.instruction + "es:\n"
-				+ this.cpu.toString());	
-		return true;
-	}
-	
-	public boolean newinst(ByteCode bc) {
-		this.command = ENUM_COMMAND.NEWINST;
-		this.instruction = bc;
-		/*
-		switch (this.instruction.getBytecode()) {
-			case PUSH:
-				this.cpu.execute(bc);
-			break;
-		}
-		*/
-		return true;
-	}
-	
-	public boolean reset(int n) {
-		this.command = ENUM_COMMAND.RESET;
-		return true;
-	}
-	
-	public boolean replace(int n) {
-		this.command = ENUM_COMMAND.REPLACE;
-		return true;
+	public ByteCode getByteCode() {
+		return this.instruction; 
 	}
 	
 	/**
@@ -97,9 +59,9 @@ public class Command {
 	 * @param engine siendo el bucle de la aplicacion. 
 	 * @return exc siendo true si se ejecuta, false si da error.
 	 */
-	public boolean execute(Engine engine) {
+	public boolean execute(Engine _engine) {
 		ENUM_COMMAND op = this.command;
-		this.cpu = new CPU(this.instruction);
+		//this.cpu = new CPU(this.instruction);
 		if (this.instruction != null) {
 			System.out.println("Comienza la ejecución de " + this.command + " " + this.instruction + "\n");
 		} else {
@@ -107,32 +69,32 @@ public class Command {
 		}
 		switch (op) {
 			case HELP:
-				if (help()) {
+				if (_engine.help()) {
 					this.exc = true;
 				}
 			break;
 			case QUIT:
-				if (quit()) {
+				if (_engine.quit()) {
 					this.exc = true;
 				}
 			break;
 			case NEWINST:
-				if (newinst(this.instruction)) {
+				if (_engine.newinst(this.instruction)) {
 					this.exc = true;
 				}
 			break;
 			case RUN:
-				if (run()) {
+				if (_engine.run()) {
 					this.exc = true;
 				}
 			break;
 			case RESET:
-				if (reset(this.replace)) {
+				if (_engine.reset()) {
 					this.exc = true;
 				}
 			break;
 			case REPLACE:
-				if (replace(this.replace)) {
+				if (_engine.replace(this.replace)) {
 					this.exc = true;
 				}
 			break;

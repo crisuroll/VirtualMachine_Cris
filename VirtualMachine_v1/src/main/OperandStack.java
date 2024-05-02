@@ -68,9 +68,9 @@ public class OperandStack {
 	 */
 	public int pop() {
 		int del = -1;
-		if (numElems != 0) {
+		if (this.numElems != 0) {
 			del = this.Stack[numElems - 1];
-			this.Stack[numElems - 1] = null;
+			this.Stack[this.numElems - 1] = null;
 			this.numElems--;
 		}
 		return del;

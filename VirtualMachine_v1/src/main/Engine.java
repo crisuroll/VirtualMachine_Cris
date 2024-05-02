@@ -8,34 +8,93 @@ import java.util.Scanner;
  */
 public class Engine {
 	private ByteCodeProgram program = new ByteCodeProgram();
-	private boolean end;
+	private boolean end = false;
 	private Command cmd = new Command(ENUM_COMMAND.HELP);
-	private ByteCode bc = new ByteCode(null);
-	
+	private CPU cpu = new CPU();
 	Scanner sc = new Scanner(System.in);
-	String op = " ";
+	
+	private String entrada = " ";
+	
+	/**
+	 * Metodo help.
+	 * @return
+	 */
+	public boolean help() {
+		System.out.println("\n	HELP: Muestra esta ayuda\n"
+				+ "	QUIT: Cierra la aplicación\n"
+				+ "	RUN: Ejecuta el programa\n"
+				+ "	NEWINST BYTECODE: Introduce una nueva instrucción al programa\n"
+				+ "	RESET: Vacía el programa actual\n"
+				+ "	REPLACE N: Reemplaza la instrucción N por la solicitada al usuario\n");
+		return true;
+	}
+	
+	/**
+	 * Metodo quit.
+	 * @return
+	 */
+	public boolean quit() {
+		System.out.println("Fin de la ejecución...");
+		this.end = true;
+		return true;
+	}
+	
+	/**
+	 * Metodo run.
+	 * @return
+	 */
+	public boolean run() {
+			System.out.println(this.program.runProgram(this.cpu));
+		return true;
+	}
+	
+	/**
+	 * Metodo newinst.
+	 * @param bc
+	 * @return
+	 */
+	public boolean newinst(ByteCode _bc) {
+		this.program.setInstr(_bc);
+		System.out.println(this.program.toString());
+		return true;
+	}
+	
+	/**
+	 * Metodo reset.
+	 * @param n
+	 * @return
+	 */
+	public boolean reset() {
+		this.program.resetProgram();
+		return true;
+	}
+	
+	/**
+	 * Metodo replace.
+	 * @param n
+	 * @return
+	 */
+	public boolean replace(int n) {
+		this.program.setInstrPos(this.cmd.getByteCode(), n);
+		return true;
+	}
 	
 	/**
 	 * Metodo start().
 	 */
 	public void start() {
 		System.out.println("Comienza el programa VIRTUAL MACHINE\r\n");
-		String text = "HELP";
 		do {
-			this.cmd = CommandParser.parse(text);
-			this.cmd.execute(this);
-			if (this.cmd.getCommand() == ENUM_COMMAND.NEWINST) {
-				String[] cadena = text.split(" ");
-				if (cadena.length == 2) {
-					this.bc = ByteCodeParser.parse(text.split(" ")[1]);
-				} else {
-					this.bc = ByteCodeParser.parse(text.split(" ")[1] + " " + text.split(" ")[2]);
+			this.entrada = this.sc.nextLine();
+			this.cmd = CommandParser.parse(this.entrada);
+			if (this.cmd != null) {
+				if (!this.cmd.execute(this)) {
+					System.err.println("Error: Ejecución incorrecta del comando.");
 				}
-				this.program.setInstr(bc);
-				System.out.println(this.program.toString());		
+			} else {
+				System.err.println("Error: Comando incorrecto.");
 			}
-			text = this.sc.nextLine();
-		} while (this.cmd.getCommand()!= ENUM_COMMAND.QUIT); 
+		} while (this.end != true); 
 	}
 	
 }
