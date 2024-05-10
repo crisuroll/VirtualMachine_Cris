@@ -74,8 +74,10 @@ public class Engine {
 	 * @param n
 	 * @return
 	 */
-	public boolean replace(int n) {
-		this.program.setInstrPos(this.cmd.getByteCode(), n);
+	public boolean replace(int n) { // TERMINAR
+		System.out.println("Nueva instruccion: ");
+		ByteCode bc = ByteCodeParser.parse(sc.nextLine());
+		this.program.setInstrPos(bc, n);
 		return true;
 	}
 	

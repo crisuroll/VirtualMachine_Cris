@@ -12,7 +12,7 @@ public class Memory {
 	final private int MAX_MEMORY;
 	private Integer[] Memory;
 	private int size;
-	private boolean empty; // No sé dónde se utiliza xd
+	private boolean empty; // No sé dónde se utiliza xd ya lo se :3
 
 	/**
 	 * Constructora de la clase Memory.
@@ -31,13 +31,16 @@ public class Memory {
 	 */
 	public String toString() {
 		String str = "";
-		for (int i = 0; i < this.Memory.length; i++) {
-			if(this.Memory[i] != null) {
-				str = str + " [ " + i + "] " + this.Memory[i] + " ";
-			} else {
-				str = " <vacía> ";
-			}
+		if (empty == false) {
+			str = " <vacía> ";
+		} else {
+			for (int i = 0; i < this.Memory.length; i++) {
+				if (this.Memory[i] != null) {
+					str = str + " [" + i + "] " + this.Memory[i] + " ";			
+				}
+			}			
 		}
+
 		return str;
 	}
 	
@@ -51,10 +54,11 @@ public class Memory {
 		// value es la cima de la pila
 		boolean added = false;
 		if (_pos >= 0) {
-			if (this.size < this.MAX_MEMORY) {
+			if (_pos < this.MAX_MEMORY) {
 				this.Memory[_pos] = _value;
 				System.out.println("Valor escrito correctamente.");
 				this.size++;
+				this.empty = true;
 				added = true;
 			} else {
 				System.out.println("Aumentando memoria...");
@@ -62,6 +66,7 @@ public class Memory {
 				this.Memory[_pos] = _value;
 				System.out.println("Valor escrito correctamente.");
 				this.size++;
+				this.empty = true;
 				added = true;
 			}	
 		} else {
@@ -87,6 +92,8 @@ public class Memory {
 	 * Metodo resize(). Duplica el tamaño del array.
 	 * @return Memory siendo el array duplicado.
 	 */
+	// ARREGLAR QUE SE PUEDAN HACER VARIOS RESIze :3
+	
 	private void resize(int _pos) {
 		Integer[] Memory2 = new Integer[_pos*2];
 		if (_pos >= this.size) {

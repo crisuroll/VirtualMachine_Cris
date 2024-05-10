@@ -33,8 +33,11 @@ public class ByteCodeProgram {
 	 */
 	public boolean setInstrPos (ByteCode _bytecode, int _pos) {
 		boolean added = false;
+		if (this.program[_pos] != null) {
+			this.program[_pos] = _bytecode;
+			added = true;
+		}
 		return added;
-		// replace
 	}
 	
 	/**
@@ -84,7 +87,7 @@ public class ByteCodeProgram {
 			}
 		}
 		_cpu.erase();
-		// _cpu.runCPU(); hacer este método, la pone en marcha si estaba parada
+		_cpu.runCPU(); // hacer este método, la pone en marcha si estaba parada
 		return str;
 	} 
 	

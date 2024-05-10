@@ -66,8 +66,8 @@ public class CPU {
 	/**
 	 * Metodo runCPU.
 	 */
-	public void runCPU() {
-		
+	public boolean runCPU() {
+		return this.halt = false;
 	}
 	
 	/**
@@ -99,10 +99,14 @@ public class CPU {
 				}
 			break;
 			case LOAD:
-				instr.load(instr.getParam());
+				if(this.pila.push(this.memoria.read(instr.getParam()))) {
+					exc = true;
+				}
 			break;
 			case STORE:
-				instr.store(instr.getParam());
+				if(this.memoria.write(instr.getParam(), this.pila.pop())) {
+					exc = true;
+				}
 			break;
 			case ADD:
 				if (sumaPila()) {
