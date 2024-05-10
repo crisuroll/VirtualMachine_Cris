@@ -33,7 +33,7 @@ public class ByteCodeProgram {
 	 */
 	public boolean setInstrPos (ByteCode _bytecode, int _pos) {
 		boolean added = false;
-		if (this.program[_pos] != null) {
+		if (_pos >= 0 && _pos <= this.program.length) {
 			this.program[_pos] = _bytecode;
 			added = true;
 		}
@@ -67,7 +67,8 @@ public class ByteCodeProgram {
 	 * Metodo resetProgram.
 	 */
 	public ByteCode[] resetProgram() {
-		return this.program = new ByteCode[size];
+		this.numElems = 0;
+		return this.program = new ByteCode[this.size];
 	}
 	
 	/**
@@ -77,13 +78,13 @@ public class ByteCodeProgram {
 	public String runProgram(CPU _cpu) {
 		String str = "";
 		for (int i = 0; i < this.numElems; i++) {
-			if (/*!_cpu.isHalt() &&*/ _cpu.execute(this.program[i])) {
+			if (!_cpu.isHalt() && _cpu.execute(this.program[i])) {
 				str = str  + "\nEl estado de la máquina tras ejecutar el bytecode "
 						+ this.program[i] + " es:\n"
-						+ _cpu.toString();/*
+						+ _cpu.toString();
 			} else if (!_cpu.isHalt()) { // Si hay error en la ejecución
 				System.err.println("Error: Ejecución incorrecta del comando.");
-				this.program.toString();*/
+				this.program.toString();
 			}
 		}
 		_cpu.erase();

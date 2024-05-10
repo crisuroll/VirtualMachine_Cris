@@ -97,7 +97,7 @@ public class Memory {
 	private void resize(int _pos) {
 		Integer[] Memory2 = new Integer[_pos*2];
 		if (_pos >= this.size) {
-			for (int i = 0; i < this.Memory.length*2; i++) {
+			for (int i = 0; i < this.Memory.length; i++) {
 				if (i < this.Memory.length) {
 					Memory2[i] = this.Memory[i];
 				} else {	

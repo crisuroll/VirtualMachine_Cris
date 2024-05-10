@@ -74,7 +74,8 @@ public class CPU {
 	 * Metodo erase.
 	 */
 	public void erase() {
-		
+		this.pila = new OperandStack();
+		this.memoria = new Memory();
 	}
 	
 	/**
@@ -82,6 +83,14 @@ public class CPU {
 	 */
 	public boolean isHalt() {
 		return this.halt;
+	}
+	
+	/**
+	 * Metodo out.
+	 */
+	public boolean out() {
+		System.out.println("La cima de la pila es: " + this.pila.getCima());
+		return true;
 	}
 	
 	/**
@@ -129,10 +138,16 @@ public class CPU {
 				}
 			break;
 			case OUT:
+				if (out()) {
+					exc = true;
+				}
 				
 			break;
 			case HALT:
-				
+				if (!isHalt()) {
+					this.halt = true;
+					exc = true;
+				}
 			break;
 		}
 		return exc;

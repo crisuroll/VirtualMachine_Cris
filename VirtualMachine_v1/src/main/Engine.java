@@ -74,9 +74,9 @@ public class Engine {
 	 * @param n
 	 * @return
 	 */
-	public boolean replace(int n) { // TERMINAR
+	public boolean replace(int n) { // REVISAR CONDICIONES
 		System.out.println("Nueva instruccion: ");
-		ByteCode bc = ByteCodeParser.parse(sc.nextLine());
+		ByteCode bc = ByteCodeParser.parse(this.sc.nextLine());
 		this.program.setInstrPos(bc, n);
 		return true;
 	}
@@ -90,6 +90,11 @@ public class Engine {
 			this.entrada = this.sc.nextLine();
 			this.cmd = CommandParser.parse(this.entrada);
 			if (this.cmd != null) {
+				if (this.cmd.getByteCode() != null) {
+					System.out.println("Comienza la ejecución de " + this.cmd.getCommand() + " " + this.cmd.getByteCode());
+				} else {
+					System.out.println("Comienza la ejecución de " + this.cmd.getCommand());
+				}
 				if (!this.cmd.execute(this)) {
 					System.err.println("Error: Ejecución incorrecta del comando.");
 				}
