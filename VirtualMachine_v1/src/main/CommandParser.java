@@ -34,15 +34,11 @@ public class CommandParser {
 			case "newinst":
 				if (cadena[1] != null) {
 					cmd = new Command(ENUM_COMMAND.NEWINST, ByteCodeParser.parse(cadena[1]));
-				} else {
-					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			case "replace":
 				if (cadena[1] != null) {
 					cmd = new Command(ENUM_COMMAND.REPLACE, Integer.parseInt(cadena[1]));
-				} else {
-					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			}
@@ -51,13 +47,9 @@ public class CommandParser {
 			case "newinst":
 				if (cadena[1] != null) {
 					cmd = new Command(ENUM_COMMAND.NEWINST, ByteCodeParser.parse(cadena[1]+ " " + cadena[2]));
-				} else {
-					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			}
-		} else {
-			System.err.println("Error. Comando no válido.");
 		}
 		return cmd;
 	}

@@ -20,7 +20,7 @@ public class Engine {
 	 * @return
 	 */
 	public boolean help() {
-		System.out.println("\n	HELP: Muestra esta ayuda\n"
+		System.out.println("	HELP: Muestra esta ayuda\n"
 				+ "	QUIT: Cierra la aplicación\n"
 				+ "	RUN: Ejecuta el programa\n"
 				+ "	NEWINST BYTECODE: Introduce una nueva instrucción al programa\n"
@@ -34,7 +34,7 @@ public class Engine {
 	 * @return
 	 */
 	public boolean quit() {
-		System.out.println("Fin de la ejecución...");
+		System.out.println(this.program.toString() + "\n\nFin de la ejecución...");
 		this.end = true;
 		return true;
 	}
@@ -44,7 +44,7 @@ public class Engine {
 	 * @return
 	 */
 	public boolean run() {
-			System.out.println(this.program.runProgram(this.cpu));
+		System.out.println(this.program.runProgram(this.cpu) + this.program.toString());
 		return true;
 	}
 	
@@ -54,9 +54,12 @@ public class Engine {
 	 * @return
 	 */
 	public boolean newinst(ByteCode _bc) {
-		this.program.setInstr(_bc);
-		System.out.println(this.program.toString());
-		return true;
+		if (_bc != null) {
+			this.program.setInstr(_bc);
+			System.out.println(this.program.toString());
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -74,11 +77,17 @@ public class Engine {
 	 * @param n
 	 * @return
 	 */
-	public boolean replace(int n) { // REVISAR CONDICIONES
-		System.out.println("Nueva instruccion: ");
-		ByteCode bc = ByteCodeParser.parse(this.sc.nextLine());
-		this.program.setInstrPos(bc, n);
-		return true;
+	public boolean replace(int n) {
+		if (n < this.program.length()) {
+			System.out.print("Nueva instruccion: ");
+			ByteCode bc = ByteCodeParser.parse(this.sc.nextLine());
+			if (bc != null) {
+				this.program.setInstrPos(bc, n);
+				System.out.println(this.program.toString());			
+				return true;		
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -86,6 +95,7 @@ public class Engine {
 	 */
 	public void start() {
 		System.out.println("Comienza el programa VIRTUAL MACHINE\r\n");
+		help();
 		do {
 			this.entrada = this.sc.nextLine();
 			this.cmd = CommandParser.parse(this.entrada);
@@ -96,12 +106,12 @@ public class Engine {
 					System.out.println("Comienza la ejecución de " + this.cmd.getCommand());
 				}
 				if (!this.cmd.execute(this)) {
-					System.err.println("Error: Ejecución incorrecta del comando.");
+					System.err.println("Error: Ejecución incorrecta del comando.\r\n");
 				}
 			} else {
-				System.err.println("Error: Comando incorrecto.");
+				System.err.println("Error: Comando incorrecto.\r\n");
 			}
-		} while (this.end != true); 
+		} while (!this.end); 
 	}
 	
 }

@@ -11,6 +11,7 @@ public class OperandStack {
 	final private int MAX_STACK;
 	private Integer[] Stack;
 	private int numElems;
+	private boolean empty;
 	
 	/**
 	 * Constructora de la clase OperandStack.
@@ -28,11 +29,15 @@ public class OperandStack {
 	 */
 	public String toString() {
 		String str = "";
-		for (int i = 0; i < this.numElems; i++) {
-			if(this.Stack[i] != null) {
-				str = str + " " + this.Stack[i] + " ";
-			} else {
-				str = str + " <vacía> ";
+		if (isEmpty()) {
+			str = " <vacía>";
+		} else {
+			for (int i = 0; i < this.numElems; i++) {
+				if(this.Stack[i] != null) {
+					str = str + " " + this.Stack[i] + " ";
+				} else {
+					str = str + " <vacía> ";
+				}
 			}
 		}
 		return str;
@@ -43,7 +48,7 @@ public class OperandStack {
 	 * @return true si está vacia; false si contiene elementos.
 	 */
 	public boolean isEmpty() {
-		return this.numElems == 0;
+		return this.numElems == 0 ? true : false;
 	}
 	
 	/**

@@ -23,7 +23,7 @@ public class CPU {
 	 * @return
 	 */
 	public String toString() {
-		return "Memoria: " + this.memoria.toString() + "\nPila: " + this.pila.toString();
+		return "  Memoria: " + this.memoria.toString() + "\n  Pila: " + this.pila.toString();
 	}
 	
 	/**
@@ -31,7 +31,12 @@ public class CPU {
 	 * @return 
 	 */
 	public boolean sumaPila() {
-		int add = this.pila.pop() + this.pila.pop();
+		int num1 = this.pila.pop();
+		int num2 = this.pila.pop();
+		if (num1 == -1 || num2 == -1) {
+			return false;
+		}
+		int add = num2 + num1;
 		this.pila.push(add);
 		return true;
 	}
@@ -40,7 +45,12 @@ public class CPU {
 	 * Metodo restaPila.
 	 */
 	public boolean restaPila() {
-		int sub = this.pila.pop() - this.pila.pop();
+		int num1 = this.pila.pop();
+		int num2 = this.pila.pop();
+		if (num1 == -1 || num2 == -1) {
+			return false;
+		}
+		int sub = num2 - num1;
 		this.pila.push(sub);
 		return true;
 	}
@@ -49,7 +59,12 @@ public class CPU {
 	 * Metodo multiplicaPila.
 	 */
 	public boolean multiplicaPila() {
-		int mul = this.pila.pop() * this.pila.pop();
+		int num1 = this.pila.pop();
+		int num2 = this.pila.pop();
+		if (num1 == -1 || num2 == -1) {
+			return false;
+		}
+		int mul = num2 * num1;
 		this.pila.push(mul);
 		return true;
 	}
@@ -58,7 +73,12 @@ public class CPU {
 	 * Metodo dividePila.
 	 */
 	public boolean dividePila() {
-		int div = this.pila.pop() / this.pila.pop();
+		int num1 = this.pila.pop();
+		int num2 = this.pila.pop();
+		if (num1 == -1 || num2 == -1) {
+			return false;
+		}
+		int div = num2 / num1;
 		this.pila.push(div);
 		return true;
 	}

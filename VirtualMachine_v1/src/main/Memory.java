@@ -12,7 +12,7 @@ public class Memory {
 	final private int MAX_MEMORY;
 	private Integer[] Memory;
 	private int size;
-	private boolean empty; // No sé dónde se utiliza xd ya lo se :3
+	private boolean empty;
 
 	/**
 	 * Constructora de la clase Memory.
@@ -31,12 +31,12 @@ public class Memory {
 	 */
 	public String toString() {
 		String str = "";
-		if (empty == false) {
+		if (!this.empty) {
 			str = " <vacía> ";
 		} else {
 			for (int i = 0; i < this.Memory.length; i++) {
 				if (this.Memory[i] != null) {
-					str = str + " [" + i + "] " + this.Memory[i] + " ";			
+					str = str + " [" + i + "]:" + this.Memory[i] + " ";			
 				}
 			}			
 		}
@@ -56,21 +56,16 @@ public class Memory {
 		if (_pos >= 0) {
 			if (_pos < this.MAX_MEMORY) {
 				this.Memory[_pos] = _value;
-				System.out.println("Valor escrito correctamente.");
 				this.size++;
 				this.empty = true;
 				added = true;
 			} else {
-				System.out.println("Aumentando memoria...");
 				resize(_pos);
 				this.Memory[_pos] = _value;
-				System.out.println("Valor escrito correctamente.");
 				this.size++;
 				this.empty = true;
 				added = true;
 			}	
-		} else {
-			System.err.println("Error. La posición no puede ser menor que 0.");
 		}
 		return added;
 	}
@@ -92,7 +87,6 @@ public class Memory {
 	 * Metodo resize(). Duplica el tamaño del array.
 	 * @return Memory siendo el array duplicado.
 	 */
-	// ARREGLAR QUE SE PUEDAN HACER VARIOS RESIze :3
 	
 	private void resize(int _pos) {
 		Integer[] Memory2 = new Integer[_pos*2];

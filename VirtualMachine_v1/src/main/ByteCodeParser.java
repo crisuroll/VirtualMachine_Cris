@@ -38,27 +38,19 @@ public class ByteCodeParser {
 			case "push":
 				if (cadena[1] != null) {
 					bc = new ByteCode(ENUM_BYTECODE.PUSH, Integer.parseInt(cadena[1]));
-				} else {
-					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			case "load":
 				if (cadena[1] != null) {
 					bc = new ByteCode(ENUM_BYTECODE.LOAD, Integer.parseInt(cadena[1]));
-				} else {
-					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			case "store":
 				if (cadena[1] != null) {
 					bc = new ByteCode(ENUM_BYTECODE.STORE, Integer.parseInt(cadena[1]));
-				} else {
-					System.err.println("Error. Argumento no válido.");
 				}
 			break;
 			}
-		} else {
-			System.err.println("Error. Bytecode no válido.");
 		}
 		return bc;
 	}
