@@ -26,6 +26,7 @@ public class ByteCode {
 	
 	/**
 	 * Metodo getBytecode. Coge el valor de tipo enum del ByteCode.
+	 * @return name es el enum correspondiente al Bytecode.
 	 */
 	public ENUM_BYTECODE getEnumByteCode() {
 		return this.name;
@@ -33,13 +34,15 @@ public class ByteCode {
 	
 	/**
 	 * Metodo getParam. Coge el parámetro del bytecode.
+	 * @return param es el parametro correspondiente al Bytecode.
 	 */
 	public int getParam() {
 		return this.param;
 	}
 	
 	/**
-	 * Metodo toString().
+	 * Metodo toString(). Crea un String de caracteres con la instruccion Bytecode y, si lo tiene, su parametro.
+	 * @return str es el String que forma la instruccion.
 	 */
 	public String toString() {
 	    String str = "";

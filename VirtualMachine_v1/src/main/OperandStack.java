@@ -6,15 +6,14 @@ package main;
  */
 public class OperandStack {
 	/**
-	 * Atributos de la clase OperandStack.
+	 * Atributos.
 	 */
 	final private int MAX_STACK;
 	private Integer[] Stack;
 	private int numElems;
-	private boolean empty;
 	
 	/**
-	 * Constructora de la clase OperandStack.
+	 * Constructora.
 	 */
 	public OperandStack() {
 		this.MAX_STACK = 10;

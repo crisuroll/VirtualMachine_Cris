@@ -16,7 +16,7 @@ public class Command {
 	private int replace;
 	
 	/**
-	 * Constructora.
+	 * Constructoras.
 	 */	
 	public Command(ENUM_COMMAND _command) {
 		this.command = _command;
@@ -33,13 +33,16 @@ public class Command {
 	}
 	
 	/**
-	 * Metodo getCommand.
-	 * @return
+	 * Metodo getCommand. Indica el comando de tipo enum.
+	 * @return command siendo el enum del comando.
 	 */
 	public ENUM_COMMAND getCommand() {
 		return this.command;
 	}
 	
+	/** Metodo getByteCode. Indica la instruccion del comando.
+	 * @return instruction siendo el bytecode del comando.
+	 */
 	public ByteCode getByteCode() {
 		return this.instruction; 
 	}

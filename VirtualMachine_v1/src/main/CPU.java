@@ -12,6 +12,9 @@ public class CPU {
 	private Memory memoria;
 	private boolean halt;
 	
+	/**
+	 * Constructora.
+	 */
 	public CPU() {
 		this.pila = new OperandStack();
 		this.memoria = new Memory();
@@ -20,15 +23,15 @@ public class CPU {
 	
 	/**
 	 * Metodo toString. Llama a los metodos toString de las clases OperandStack y Memory.
-	 * @return
+	 * @return la memoria y la pila de la CPU.
 	 */
 	public String toString() {
 		return "  Memoria: " + this.memoria.toString() + "\n  Pila: " + this.pila.toString();
 	}
 	
 	/**
-	 * Metodo sumaPila.
-	 * @return 
+	 * Metodo sumaPila. Suma la cima y la subcima de la pila, las elimina y agrega su resultado a ella.
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean sumaPila() {
 		int num1 = this.pila.pop();
@@ -42,7 +45,8 @@ public class CPU {
 	}
 	
 	/**
-	 * Metodo restaPila.
+	 * Metodo restaPila. Resta la cima y la subcima de la pila, las elimina y agrega su resultado a ella.
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean restaPila() {
 		int num1 = this.pila.pop();
@@ -56,7 +60,8 @@ public class CPU {
 	}
 	
 	/**
-	 * Metodo multiplicaPila.
+	 * Metodo multiplicaPila. Multiplica la cima y la subcima de la pila, las elimina y agrega su resultado a ella.
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean multiplicaPila() {
 		int num1 = this.pila.pop();
@@ -70,7 +75,8 @@ public class CPU {
 	}
 	
 	/**
-	 * Metodo dividePila.
+	 * Metodo dividePila. Divide la cima y la subcima de la pila, las elimina y agrega su resultado a ella.
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean dividePila() {
 		int num1 = this.pila.pop();
@@ -84,14 +90,15 @@ public class CPU {
 	}
 	
 	/**
-	 * Metodo runCPU.
+	 * Metodo runCPU. Corre la CPU.
+	 * @return halt poniendolo a false.
 	 */
 	public boolean runCPU() {
 		return this.halt = false;
 	}
 	
 	/**
-	 * Metodo erase.
+	 * Metodo erase. Elimina la CPU inicializandola desde cero.
 	 */
 	public void erase() {
 		this.pila = new OperandStack();
@@ -99,14 +106,16 @@ public class CPU {
 	}
 	
 	/**
-	 * Metodo isHalt.
+	 * Metodo isHalt. Comprueba si la CPU esta en pausa.
+	 * @return halt siendo true si esta en pausa; false en caso contrario.
 	 */
 	public boolean isHalt() {
 		return this.halt;
 	}
 	
 	/**
-	 * Metodo out.
+	 * Metodo out. Muestra la cima de la pila.
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean out() {
 		System.out.println("La cima de la pila es: " + this.pila.getCima());

@@ -7,7 +7,7 @@ package main;
 public class Memory {
 
 	/**
-	 * Atributos de la clase Memory.
+	 * Atributos.
 	 */
 	final private int MAX_MEMORY;
 	private Integer[] Memory;
@@ -15,7 +15,7 @@ public class Memory {
 	private boolean empty;
 
 	/**
-	 * Constructora de la clase Memory.
+	 * Constructora.
 	 */
 	public Memory() {
 		this.MAX_MEMORY = 2;

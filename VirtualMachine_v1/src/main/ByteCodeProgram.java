@@ -7,14 +7,14 @@ package main;
 public class ByteCodeProgram {
 
 	/**
-	 * Atributos de la clase ByteCodeProgram.
+	 * Atributos.
 	 */
 	private ByteCode[] program;
 	private int numElems;
 	private int size;
 	
 	/**
-	 * Constructoras.
+	 * Constructora.
 	 */
 	public ByteCodeProgram() {
 		this.size = 3;
@@ -22,6 +22,10 @@ public class ByteCodeProgram {
 		this.numElems = 0;
 	}
 	
+	/**
+	 * Metodo length. Indica la longitud del programa.
+	 * @return program.length siendo la longitud del programa.
+	 */
 	public int length() {
 		return this.program.length;
 	}
@@ -30,6 +34,7 @@ public class ByteCodeProgram {
 	 * Metodo setInstrPos. Añade un bytecode a una posicion dada.
 	 * @param _bytecode es la instruccion bytecode.
 	 * @param _pos es la posicion de la pila de comandos.
+	 * @return added siendo true si se ha agregado la instruccion; false en caso contrario.
 	 */
 	public boolean setInstrPos (ByteCode _bytecode, int _pos) {
 		boolean added = false;
@@ -58,13 +63,15 @@ public class ByteCodeProgram {
 	/**
 	 * Metodo getByteCode. Retorna un bytecode del programa.
 	 * @param _pos es la posicion de la pila de comandos.
+	 * @return program[_pos] siendo el bytecode de la posicion dada.
 	 */
 	public ByteCode getByteCode (int _pos) {
 		return this.program[_pos];
 	}
 	
 	/**
-	 * Metodo resetProgram.
+	 * Metodo resetProgram. Reinicia el programa.
+	 * @return program siendo un programa vacio inicializado desde cero.
 	 */
 	public ByteCode[] resetProgram() {
 		this.numElems = 0;
@@ -72,8 +79,9 @@ public class ByteCodeProgram {
 	}
 	
 	/**
-	 * Metodo runProgram. "Ejecuta" el programa. Recibe la CPU (pila y memoria). Crea un String
-	 * gigante (ver ejemplo de ejecución). Quien ejecuta el programa en verdad es Command.run()
+	 * Metodo runProgram. Ejecuta el programa y crea un String gigante para mostrar el estado de la maquina.
+	 * @param _cpu siendo la CPU de donde sacar las instrucciones.
+	 * @return str siendo un string con el estado de la maquina tras la ejecucion.
 	 */
 	public String runProgram(CPU _cpu) {
 		String str = "";
@@ -94,7 +102,8 @@ public class ByteCodeProgram {
 	} 
 	
 	/**
-	 * Metodo toString.
+	 * Metodo toString. Crea un string con el programa almacenado en program.
+	 * @return str siendo el programa almacenado.
 	 */
 	public String toString() {
 		String str = "Programa almacenado:\n";

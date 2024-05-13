@@ -7,17 +7,31 @@ import java.util.Scanner;
  * @author crisuroll
  */
 public class Engine {
-	private ByteCodeProgram program = new ByteCodeProgram();
-	private boolean end = false;
-	private Command cmd = new Command(ENUM_COMMAND.HELP);
-	private CPU cpu = new CPU();
-	Scanner sc = new Scanner(System.in);
-	
-	private String entrada = " ";
+	/**
+	 * Atributos.
+	 */
+	private ByteCodeProgram program;
+	private boolean end;
+	private Command cmd;
+	private CPU cpu;
+	Scanner sc;
+	private String entrada;
 	
 	/**
-	 * Metodo help.
-	 * @return
+	 * Constructora.
+	 */
+	public Engine() {
+		this.program = new ByteCodeProgram();
+		this.end = false;
+		this.cmd = new Command(ENUM_COMMAND.HELP);
+		this.cpu = new CPU();
+		this.sc = new Scanner(System.in);
+		this.entrada = " ";
+	}
+	
+	/**
+	 * Metodo help. Muestra informacion sobre los distintos comandos disponibles.
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean help() {
 		System.out.println("	HELP: Muestra esta ayuda\n"
@@ -30,8 +44,8 @@ public class Engine {
 	}
 	
 	/**
-	 * Metodo quit.
-	 * @return
+	 * Metodo quit. Cierra la aplicacion.
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean quit() {
 		System.out.println(this.program.toString() + "\n\nFin de la ejecución...");
@@ -40,8 +54,8 @@ public class Engine {
 	}
 	
 	/**
-	 * Metodo run.
-	 * @return
+	 * Metodo run. Ejecuta el programa.
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean run() {
 		System.out.println(this.program.runProgram(this.cpu) + this.program.toString());
@@ -49,9 +63,9 @@ public class Engine {
 	}
 	
 	/**
-	 * Metodo newinst.
+	 * Metodo newinst. Introduce una nueva instrucción al programa.
 	 * @param bc
-	 * @return
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean newinst(ByteCode _bc) {
 		if (_bc != null) {
@@ -63,9 +77,9 @@ public class Engine {
 	}
 	
 	/**
-	 * Metodo reset.
+	 * Metodo reset. Vacía el programa actual.
 	 * @param n
-	 * @return
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean reset() {
 		this.program.resetProgram();
@@ -73,9 +87,9 @@ public class Engine {
 	}
 	
 	/**
-	 * Metodo replace.
+	 * Metodo replace. Reemplaza la instrucción N por la solicitada al usuario.
 	 * @param n
-	 * @return
+	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean replace(int n) {
 		if (n < this.program.length()) {
@@ -91,7 +105,7 @@ public class Engine {
 	}
 	
 	/**
-	 * Metodo start().
+	 * Metodo start(). Se encarga de toda la ejecucion de la maquina virtual.
 	 */
 	public void start() {
 		System.out.println("Comienza el programa VIRTUAL MACHINE\r\n");

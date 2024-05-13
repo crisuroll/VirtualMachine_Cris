@@ -1,7 +1,8 @@
 package main;
 
 /**
- * Clase ByteCodeParser.
+ * Clase ByteCodeParser. Parsea un string que contiene un posible bytecode.
+ * @author crisuroll
  */
 public class ByteCodeParser {
 	/**
