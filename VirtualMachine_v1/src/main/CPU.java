@@ -81,7 +81,7 @@ public class CPU {
 	public boolean dividePila() {
 		int num1 = this.pila.pop();
 		int num2 = this.pila.pop();
-		if (num1 == -1 || num2 == -1) {
+		if (num1 == -1 || num2 == -1 || num1 == 0 || num2 == 0) {
 			return false;
 		}
 		int div = num2 / num1;

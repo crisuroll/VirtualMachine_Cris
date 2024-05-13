@@ -27,7 +27,7 @@ public class ByteCodeProgram {
 	 * @return program.length siendo la longitud del programa.
 	 */
 	public int length() {
-		return this.program.length;
+		return this.numElems;
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public class ByteCodeProgram {
 			} else if (!_cpu.isHalt()) { // Si hay error en la ejecución
 				
 				// Esto está mal pero no me sale de otra forma :(
-				str = str + "Error: Ejecución incorrecta del comando\n" + this.program.toString();
+				str = str + "Error: Ejecución incorrecta del comando\n";// + this.program.toString();
 			}
 		}
 		_cpu.erase();
