@@ -92,7 +92,7 @@ public class Engine {
 	 * @return true si se ha ejecutado; false en caso contrario.
 	 */
 	public boolean replace(int n) {
-		if (n < this.program.length()) {
+		if (n < this.program.length() && n >= 0) {
 			System.out.print("Nueva instruccion: ");
 			ByteCode bc = ByteCodeParser.parse(this.sc.nextLine());
 			if (bc != null) {

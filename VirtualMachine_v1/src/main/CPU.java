@@ -37,6 +37,7 @@ public class CPU {
 		int num1 = this.pila.pop();
 		int num2 = this.pila.pop();
 		if (num1 == -1 || num2 == -1) {
+			this.pila.push(num1);
 			return false;
 		}
 		int add = num2 + num1;
@@ -52,6 +53,7 @@ public class CPU {
 		int num1 = this.pila.pop();
 		int num2 = this.pila.pop();
 		if (num1 == -1 || num2 == -1) {
+			this.pila.push(num1);
 			return false;
 		}
 		int sub = num2 - num1;
@@ -67,6 +69,7 @@ public class CPU {
 		int num1 = this.pila.pop();
 		int num2 = this.pila.pop();
 		if (num1 == -1 || num2 == -1) {
+			this.pila.push(num1);
 			return false;
 		}
 		int mul = num2 * num1;
@@ -81,7 +84,8 @@ public class CPU {
 	public boolean dividePila() {
 		int num1 = this.pila.pop();
 		int num2 = this.pila.pop();
-		if (num1 == -1 || num2 == -1 || num1 == 0 || num2 == 0) {
+		if (num1 == -1 || num2 == -1 || num1 == 0) {
+			this.pila.push(num1);
 			return false;
 		}
 		int div = num2 / num1;

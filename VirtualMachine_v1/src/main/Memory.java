@@ -9,7 +9,7 @@ public class Memory {
 	/**
 	 * Atributos.
 	 */
-	final private int MAX_MEMORY;
+	private int MAX_MEMORY;
 	private Integer[] Memory;
 	private int size;
 	private boolean empty;
@@ -89,16 +89,14 @@ public class Memory {
 	 */
 	
 	private void resize(int _pos) {
-		Integer[] Memory2 = new Integer[_pos*2];
-		if (_pos >= this.size) {
-			for (int i = 0; i < this.Memory.length; i++) {
-				if (i < this.Memory.length) {
-					Memory2[i] = this.Memory[i];
-				} else {	
-					Memory2[i] = null;
-				}
-			}
-		}
-		this.Memory = Memory2;
+	    Integer[] Memory2 = new Integer[_pos*2];
+	    if (_pos >= this.size) {
+	        for (int i = 0; i < this.Memory.length; i++) {
+	            Memory2[i] = this.Memory[i];
+	        }
+	    }
+	    this.Memory = Memory2;
+	    this.MAX_MEMORY = this.Memory.length;
 	}
+
 }
